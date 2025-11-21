@@ -1,0 +1,673 @@
+{
+    "info": {
+        "name": "LibManage API Collection",
+        "description": "Complete API collection for LibManage Library Management System",
+        "version": "1.0.0",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.data.token);",
+                                    "    pm.environment.set(\"user_id\", jsonData.data.user.id);",
+                                    "    pm.test(\"User registered and token saved\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "        pm.expect(jsonData.data.token).to.exist;",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Test Member\",\"email\":\"testmember@example.com\",\"password\":\"password123\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/auth/register",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "auth", "register"]
+                        }
+                    }
+                },
+                {
+                    "name": "Login Admin",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"admin_token\", jsonData.data.token);",
+                                    "    pm.environment.set(\"admin_id\", jsonData.data.user.id);",
+                                    "    pm.test(\"Admin login successful\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "        pm.expect(jsonData.data.user.role).to.equal('admin');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"admin@libmanage.com\",\"password\":\"admin123\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/auth/login",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "auth", "login"]
+                        }
+                    }
+                },
+                {
+                    "name": "Login Petugas",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"petugas_token\", jsonData.data.token);",
+                                    "    pm.environment.set(\"petugas_id\", jsonData.data.user.id);",
+                                    "    pm.test(\"Petugas login successful\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "        pm.expect(jsonData.data.user.role).to.equal('petugas');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"petugas@libmanage.com\",\"password\":\"petugas123\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/auth/login",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "auth", "login"]
+                        }
+                    }
+                },
+                {
+                    "name": "Login Anggota",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"anggota_token\", jsonData.data.token);",
+                                    "    pm.environment.set(\"anggota_id\", jsonData.data.user.id);",
+                                    "    pm.test(\"Anggota login successful\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "        pm.expect(jsonData.data.user.role).to.equal('anggota');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"anggota1@libmanage.com\",\"password\":\"anggota123\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/auth/login",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "auth", "login"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/auth/me",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "auth", "me"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Books",
+            "item": [
+                {
+                    "name": "Get All Books",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8000/api/books",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "books"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Book by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:8000/api/books/1",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "books", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Book (Admin/Petugas)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"book_id\", jsonData.data.id);",
+                                    "    pm.test(\"Book created successfully\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"title\":\"The Lord of the Rings\",\"author\":\"J.R.R. Tolkien\",\"category_id\":1,\"stock\":8,\"cover\":\"lotr.jpg\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/books",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "books"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Book (Admin/Petugas)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"title\":\"The Lord of the Rings - Updated\",\"author\":\"J.R.R. Tolkien\",\"category_id\":1,\"stock\":10,\"cover\":\"lotr-updated.jpg\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/books/1",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "books", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Book (Admin/Petugas)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/books/1",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "books", "1"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Borrow Requests",
+            "item": [
+                {
+                    "name": "Get All Borrow Requests",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/borrow-requests",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "borrow-requests"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Borrow Request (Anggota)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"borrow_request_id\", jsonData.data.id);",
+                                    "    pm.test(\"Borrow request created\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "        pm.expect(jsonData.data.status).to.equal('pending');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{anggota_token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\":3,\"book_id\":1,\"request_date\":\"2025-11-21\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/borrow-requests",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "borrow-requests"]
+                        }
+                    }
+                },
+                {
+                    "name": "Approve Borrow Request (Petugas)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"borrowing_id\", jsonData.data.borrowing.id);",
+                                    "    pm.test(\"Borrow request approved\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "        pm.expect(jsonData.data.borrow_request.status).to.equal('approved');",
+                                    "    });",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{petugas_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/borrow-requests/1/approve",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "borrow-requests", "1", "approve"]
+                        }
+                    }
+                },
+                {
+                    "name": "Reject Borrow Request (Petugas)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{petugas_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/borrow-requests/2/reject",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "borrow-requests", "2", "reject"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Borrowings",
+            "item": [
+                {
+                    "name": "Get All Borrowings",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/borrowings",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "borrowings"]
+                        }
+                    }
+                },
+                {
+                    "name": "Return Book (Petugas)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.test(\"Book returned successfully\", () => {",
+                                    "        pm.expect(jsonData.success).to.be.true;",
+                                    "    });",
+                                    "    if (jsonData.data.fines && jsonData.data.fines.length > 0) {",
+                                    "        pm.environment.set(\"fine_id\", jsonData.data.fines[0].id);",
+                                    "    }",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{petugas_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/borrowings/1/return",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "borrowings", "1", "return"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Fines",
+            "item": [
+                {
+                    "name": "Get All Fines",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/fines",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "fines"]
+                        }
+                    }
+                },
+                {
+                    "name": "Mark Fine as Paid (Petugas)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{petugas_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/fines/1/mark-as-paid",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "fines", "1", "mark-as-paid"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Categories",
+            "item": [
+                {
+                    "name": "Get All Categories",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/categories",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "categories"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Category (Admin/Petugas)",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 201) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"category_id\", jsonData.data.id);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Sastra\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/categories",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "categories"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Get All Users (Admin)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:8000/api/users",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "users"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create User (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{admin_token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"New Petugas\",\"email\":\"newpetugas@libmanage.com\",\"password\":\"password123\",\"role\":\"petugas\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/users",
+                            "protocol": "http",
+                            "host": ["localhost"],
+                            "port": "8000",
+                            "path": ["api", "users"]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
