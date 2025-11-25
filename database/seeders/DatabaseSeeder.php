@@ -65,7 +65,8 @@ class DatabaseSeeder extends Seeder
             'author' => 'Andrea Hirata',
             'category_id' => $category1->id,
             'stock' => 5,
-            'cover' => 'laskar-pelangi.jpg',
+            'cover' => null,
+            'sinopsis' => 'Sebuah novel yang menceritakan kisah perjuangan sekelompok anak-anak berbakat dari keluarga miskin di sebuah sekolah dasar di Pulau Belitung yang bermimpi untuk meraih pendidikan terbaik.',
         ]);
 
         Book::create([
@@ -73,7 +74,8 @@ class DatabaseSeeder extends Seeder
             'author' => 'Habiburrahman El Shirazy',
             'category_id' => $category1->id,
             'stock' => 4,
-            'cover' => 'ayat-ayat-cinta.jpg',
+            'cover' => null,
+            'sinopsis' => 'Novel tentang kisah cinta seorang mahasiswa Indonesia bernama Fahri yang menimba ilmu di Kairo, Mesir, dengan latar belakang nilai-nilai agama Islam.',
         ]);
 
         Book::create([
@@ -81,7 +83,8 @@ class DatabaseSeeder extends Seeder
             'author' => 'Yuval Noah Harari',
             'category_id' => $category2->id,
             'stock' => 3,
-            'cover' => 'sapiens.jpg',
+            'cover' => null,
+            'sinopsis' => 'Sebuah buku non-fiksi yang menjelajahi sejarah umat manusia dari munculnya Homo sapiens hingga era modern, menjelaskan bagaimana manusia mendominasi dunia.',
         ]);
 
         Book::create([
@@ -89,7 +92,8 @@ class DatabaseSeeder extends Seeder
             'author' => 'Pusat Bahasa',
             'category_id' => $category3->id,
             'stock' => 2,
-            'cover' => 'kbbi.jpg',
+            'cover' => null,
+            'sinopsis' => 'Referensi lengkap bahasa Indonesia yang berisi ribuan kata, frasa, dan penjelasan mendalam tentang penggunaan dan makna dalam bahasa Indonesia standar.',
         ]);
 
         Book::create([
@@ -97,7 +101,8 @@ class DatabaseSeeder extends Seeder
             'author' => 'Henry Manampiring',
             'category_id' => $category2->id,
             'stock' => 6,
-            'cover' => 'filosofi-teras.jpg',
+            'cover' => null,
+            'sinopsis' => 'Buku filosofi yang menggabungkan ajaran Stoicisme kuno dengan kehidupan modern, memberikan panduan praktis untuk menghadapi tantangan dan meraih ketenangan hidup.',
         ]);
     }
 }

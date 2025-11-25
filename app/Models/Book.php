@@ -15,6 +15,7 @@ class Book extends Model
         'category_id',
         'stock',
         'cover',
+        'sinopsis',
     ];
 
     /**
