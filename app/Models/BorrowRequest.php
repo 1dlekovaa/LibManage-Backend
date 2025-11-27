@@ -15,11 +15,13 @@ class BorrowRequest extends Model
         'user_id',
         'book_id',
         'request_date',
+        'due_date',
         'status',
     ];
 
     protected $casts = [
         'request_date' => 'date',
+        'due_date' => 'date',
     ];
 
     /**

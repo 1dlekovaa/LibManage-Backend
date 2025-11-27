@@ -31,6 +31,7 @@ class BorrowRequestController extends Controller
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:books,id',
             'request_date' => 'required|date',
+            'due_date' => 'required|date|after:request_date',
         ]);
 
         $borrowRequest = BorrowRequest::create($validated);
