@@ -8,7 +8,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BorrowRequestController;
 use App\Http\Controllers\BorrowingController;
-use App\Http\Controllers\FineController;
 
 /**
  * Authentication Routes (Public)
@@ -60,11 +59,3 @@ Route::post('borrowings', [BorrowingController::class, 'store'])->middleware(['a
 Route::get('borrowings/{borrowing}', [BorrowingController::class, 'show'])->middleware('auth:sanctum');
 Route::post('borrowings/{borrowing}/return', [BorrowingController::class, 'return'])->middleware(['auth:sanctum', 'role:admin,petugas']);
 Route::delete('borrowings/{borrowing}', [BorrowingController::class, 'destroy'])->middleware(['auth:sanctum', 'role:admin']);
-
-/**
- * Fine Routes
- */
-Route::get('fines', [FineController::class, 'index'])->middleware('auth:sanctum');
-Route::get('fines/{fine}', [FineController::class, 'show'])->middleware('auth:sanctum');
-Route::post('fines/{fine}/mark-as-paid', [FineController::class, 'markAsPaid'])->middleware(['auth:sanctum', 'role:admin,petugas']);
-Route::delete('fines/{fine}', [FineController::class, 'destroy'])->middleware(['auth:sanctum', 'role:admin']);

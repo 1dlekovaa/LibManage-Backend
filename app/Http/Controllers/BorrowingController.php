@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Borrowing;
-use App\Models\Fine;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BorrowingController extends Controller
@@ -14,7 +12,7 @@ class BorrowingController extends Controller
      */
     public function index()
     {
-        $borrowings = Borrowing::with('user', 'book', 'fines')->get();
+        $borrowings = Borrowing::with('user', 'book')->get();
         return response()->json([
             'success' => true,
             'message' => 'Borrowings retrieved successfully',
@@ -34,7 +32,7 @@ class BorrowingController extends Controller
         ]);
 
         $borrowing = Borrowing::create($validated);
-        $borrowing->load('user', 'book', 'fines');
+        $borrowing->load('user', 'book');
 
         return response()->json([
             'success' => true,
@@ -48,7 +46,7 @@ class BorrowingController extends Controller
      */
     public function show(Borrowing $borrowing)
     {
-        $borrowing->load('user', 'book', 'fines');
+        $borrowing->load('user', 'book');
         return response()->json([
             'success' => true,
             'message' => 'Borrowing retrieved successfully',
@@ -74,25 +72,10 @@ class BorrowingController extends Controller
             'status' => 'dikembalikan',
         ]);
 
-        // Check if overdue
-        $dueDate = Carbon::parse($borrowing->borrow_date)->addDays(14);
-        if (Carbon::parse($returnDate)->greaterThan($dueDate)) {
-            $days = Carbon::parse($returnDate)->diffInDays($dueDate);
-            $fineAmount = $days * 5000; // Rp 5000 per day
-
-            Fine::create([
-                'borrowing_id' => $borrowing->id,
-                'amount' => $fineAmount,
-                'paid' => false,
-            ]);
-
-            $borrowing->update(['status' => 'terlambat']);
-        }
-
         // Increase book stock
         $borrowing->book->increment('stock');
 
-        $borrowing->load('user', 'book', 'fines');
+        $borrowing->load('user', 'book');
 
         return response()->json([
             'success' => true,

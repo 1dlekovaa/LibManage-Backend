@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BorrowRequest;
 use App\Models\Borrowing;
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BorrowRequestController extends Controller
@@ -81,11 +82,18 @@ class BorrowRequestController extends Controller
         // Update request status
         $borrowRequest->update(['status' => 'approved']);
 
-        // Create borrowing record
+        // Set borrow date as today (when approved)
+        $borrow_date = Carbon::now();
+        
+        // Use due_date from member's request (jangan override!)
+        $due_date = Carbon::parse($borrowRequest->due_date);
+
+        // Create borrowing record with due_date from request
         $borrowing = Borrowing::create([
             'user_id' => $borrowRequest->user_id,
             'book_id' => $borrowRequest->book_id,
-            'borrow_date' => now()->toDateString(),
+            'borrow_date' => $borrow_date->toDateString(),
+            'due_date' => $due_date->toDateString(),
             'status' => 'dipinjam',
         ]);
 
