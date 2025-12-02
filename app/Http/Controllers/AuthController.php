@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Register a new user
-     */
+    // Function untuk mendaftar user baru dengan email dan password
+    // Return: user data dan token untuk login
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -36,9 +35,8 @@ class AuthController extends Controller
         ], 201);
     }
 
-    /**
-     * Login user
-     */
+    // Function untuk login user dengan email dan password
+    // Return: user data dan token jika berhasil login
     public function login(Request $request)
     {
         $validated = $request->validate([
@@ -67,9 +65,8 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Logout user
-     */
+    // Function untuk logout user dengan menghapus token
+    // Return: pesan logout berhasil
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -80,9 +77,8 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Get current user
-     */
+    // Function untuk mendapatkan data user yang sedang login
+    // Return: data user yang login
     public function me(Request $request)
     {
         return response()->json([

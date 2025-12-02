@@ -10,9 +10,8 @@ use Illuminate\Http\Request;
 
 class BorrowRequestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Function untuk menampilkan semua permintaan peminjaman buku
+    // Return: list semua borrow requests
     public function index()
     {
         $borrowRequests = BorrowRequest::with('user', 'book')->get();
@@ -23,9 +22,8 @@ class BorrowRequestController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Function untuk membuat permintaan peminjaman buku baru
+    // Return: data permintaan peminjaman yang dibuat
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -45,9 +43,8 @@ class BorrowRequestController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Function untuk menampilkan detail permintaan peminjaman spesifik
+    // Return: data permintaan peminjaman berdasarkan ID
     public function show(BorrowRequest $borrowRequest)
     {
         $borrowRequest->load('user', 'book');
@@ -58,9 +55,9 @@ class BorrowRequestController extends Controller
         ]);
     }
 
-    /**
-     * Approve a borrow request (only for petugas/admin)
-     */
+    // Function untuk menyetujui permintaan peminjaman
+    // Ketika disetujui: status berubah jadi 'approved', buku berkurang 1 stock, dan membuat record peminjaman
+    // Return: data permintaan dan record peminjaman yang dibuat
     public function approve(BorrowRequest $borrowRequest)
     {
         if ($borrowRequest->status !== 'pending') {
@@ -85,7 +82,7 @@ class BorrowRequestController extends Controller
         // Set borrow date as today (when approved)
         $borrow_date = Carbon::now();
         
-        // Use due_date from member's request (jangan override!)
+        // Use due_date from member's request 
         $due_date = Carbon::parse($borrowRequest->due_date);
 
         // Create borrowing record with due_date from request
@@ -110,9 +107,9 @@ class BorrowRequestController extends Controller
         ]);
     }
 
-    /**
-     * Reject a borrow request (only for petugas/admin)
-     */
+    // Function untuk menolak permintaan peminjaman
+    // Ketika ditolak: status berubah jadi 'rejected'
+    // Return: data permintaan yang ditolak
     public function reject(BorrowRequest $borrowRequest)
     {
         if ($borrowRequest->status !== 'pending') {
@@ -131,9 +128,8 @@ class BorrowRequestController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Function untuk menghapus permintaan peminjaman
+    // Return: pesan permintaan berhasil dihapus
     public function destroy(BorrowRequest $borrowRequest)
     {
         $borrowRequest->delete();

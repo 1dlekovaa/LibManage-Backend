@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Function untuk menampilkan semua data user
+    // Return: list semua user
     public function index()
     {
         $users = User::all();
@@ -21,9 +20,8 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Function untuk membuat user baru
+    // Return: data user yang baru dibuat
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -43,9 +41,8 @@ class UserController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Function untuk menampilkan detail user spesifik
+    // Return: data user berdasarkan ID
     public function show(User $user)
     {
         return response()->json([
@@ -55,9 +52,8 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Function untuk mengubah data user
+    // Return: data user yang sudah diupdate
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
@@ -82,9 +78,8 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Function untuk menghapus user
+    // Return: pesan user berhasil dihapus
     public function destroy(User $user)
     {
         $user->delete();

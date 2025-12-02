@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Function untuk menampilkan semua kategori buku
+    // Return: list semua kategori
     public function index()
     {
         $categories = Category::all();
@@ -20,9 +19,8 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Function untuk membuat kategori baru
+    // Return: data kategori yang baru dibuat
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -38,9 +36,8 @@ class CategoryController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Function untuk menampilkan detail kategori spesifik
+    // Return: data kategori berdasarkan ID
     public function show(Category $category)
     {
         return response()->json([
@@ -50,9 +47,8 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Function untuk mengubah nama kategori
+    // Return: data kategori yang sudah diupdate
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
@@ -68,9 +64,8 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Function untuk menghapus kategori
+    // Return: pesan kategori berhasil dihapus
     public function destroy(Category $category)
     {
         $category->delete();

@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class BorrowingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Function untuk menampilkan semua data peminjaman buku
+    // Return: list semua peminjaman dengan status dipinjam atau dikembalikan
     public function index()
     {
         $borrowings = Borrowing::with('user', 'book')->get();
@@ -20,9 +19,8 @@ class BorrowingController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Function untuk membuat record peminjaman baru
+    // Return: data peminjaman yang dibuat
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -41,9 +39,8 @@ class BorrowingController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Function untuk menampilkan detail peminjaman spesifik
+    // Return: data peminjaman berdasarkan ID
     public function show(Borrowing $borrowing)
     {
         $borrowing->load('user', 'book');
@@ -54,9 +51,9 @@ class BorrowingController extends Controller
         ]);
     }
 
-    /**
-     * Return a borrowed book
-     */
+    // Function untuk mengembalikan buku yang sudah dipinjam
+    // Ketika dikembalikan: status berubah jadi 'dikembalikan', return_date diisi, dan stock buku bertambah 1
+    // Return: data peminjaman yang sudah diupdate
     public function return(Borrowing $borrowing)
     {
         if ($borrowing->status !== 'dipinjam') {
@@ -84,9 +81,8 @@ class BorrowingController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Function untuk menghapus record peminjaman
+    // Return: pesan record peminjaman berhasil dihapus
     public function destroy(Borrowing $borrowing)
     {
         $borrowing->delete();

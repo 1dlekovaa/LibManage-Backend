@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Function untuk menampilkan semua data buku dengan kategori dan URL cover
+    // Return: list semua buku dengan URL gambar cover
     public function index()
     {
         $books = Book::with('category')->get()->map(function ($book) {
@@ -26,9 +25,8 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Function untuk membuat buku baru dengan upload gambar cover
+    // Return: data buku yang baru dibuat
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -61,9 +59,8 @@ class BookController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Function untuk menampilkan detail buku spesifik dengan kategori dan cover
+    // Return: data buku berdasarkan ID
     public function show(Book $book)
     {
         $book->load('category');
@@ -77,9 +74,8 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Function untuk mengubah data buku dan bisa update gambar cover
+    // Return: data buku yang sudah diupdate
     public function update(Request $request, Book $book)
     {
         $validated = $request->validate([
@@ -116,9 +112,8 @@ class BookController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Function untuk menghapus buku dan file gambar covernya
+    // Return: pesan buku berhasil dihapus
     public function destroy(Book $book)
     {
         // Delete cover file if exists
