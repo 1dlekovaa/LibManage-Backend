@@ -34,11 +34,11 @@ http://localhost:8000/api
 
 ## 📊 ERD (Database)
 
-![ERD](https://img.dbdiagram.io/api/1/render?compress=1&src=ZnJvbSBkYiRkYXRhYmFzZSBpbXBvcnQgc3RhcnQKClRhYmxlIHVzZXJzIHsKICBpZCBiaWdpbnQgW3BrLCBpbmNyZW1lbnRdCiAgbmFtZSB2YXJjaGFyIFtub3QgbnVsbF0KICBFBWQ=)
+![ERD](./ERD.png)
 
 ## 🗂️ Use Case Diagram
 
-![Use Case Diagram](https://i.imgur.com/2QwQkQw.png)
+![Use Case Diagram](./UseCaseDiagram.png)
 
 ## 📁 Struktur Project
 
